@@ -13,7 +13,7 @@ Uses Python EXTENSIVELY (for the mean time)
 
 ## Phase 2 (prototype phase)
 
-- [ ]  break down subtitle text into EDUs
+- [ ]  break down subtitle text into EDUs (Elementary Discourse Units) using pretrained text segementation model.
 - [ ]  integrate language transformer models (prioritize French)
 - [ ]  OR use unofficial google translate API
 - [ ]  translate on-click (i.e., when you click on a word in the subtitle, it will show an instant translation of the word or of the whole phrase)
