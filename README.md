@@ -21,3 +21,7 @@ Uses Python EXTENSIVELY (for the mean time)
 
 ## Phase 3
 - [ ] modify VLC source code to render subtitles as in the prototype
+
+#Installation
+Basta dapat may VLC na nakainstall sa PC niyo tapos add niyo nalang yung libvlc.dll sa PATH
+Download niyo yung dalawang .py sa repo tapos patakbuhin niyo yung Main.py
