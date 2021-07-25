@@ -7,9 +7,10 @@ Uses Python EXTENSIVELY (for the mean time)
 ## Phase 1 (prototype phase)
 
 - [x]  find libvlc-based python player on github and clone
-- [ ]  add text-displaying widget to pyqt5 player
-- [ ]  process srt files
-- [ ]  synch srt to video
+- [x]  add text-displaying widget to pyqt5 player
+- [x]  process srt files
+- [x]  synch srt to video
+- [ ]  fix crashes when pausing player
 
 ## Phase 2 (prototype phase)
 
