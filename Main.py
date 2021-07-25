@@ -26,6 +26,9 @@ from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QSlider, QHBoxLayout, QPushButton, \
     QVBoxLayout, QAction, QFileDialog, QApplication, QLabel
 import vlc
+import threading
+import srt
+import time
 
 class Player(QMainWindow):
     """A simple Media Player using VLC and Qt
@@ -44,6 +47,8 @@ class Player(QMainWindow):
 
         self.subdicS = {}
         self.subdicE = {}
+
+        self.t1 = threading.Thread(target=self.startSub, args=())
 
     def createUI(self):
         """Set up the user interface, signals & slots
@@ -113,9 +118,9 @@ class Player(QMainWindow):
         filemenu.addSeparator()
         filemenu.addAction(exit)
 
-        self.subtimer = QTimer(self)
-        self.subtimer.setInterval(1)
-        self.subtimer.timeout.connect(self.updateSubs)
+        #self.subtimer = QTimer(self)
+        #self.subtimer.setInterval(1)
+        #self.subtimer.timeout.connect(self.updateSubs)
 
         self.timer = QTimer(self)
         self.timer.setInterval(200)
@@ -128,6 +133,7 @@ class Player(QMainWindow):
             self.mediaplayer.pause()
             self.playbutton.setText("Play")
             self.isPaused = True
+            self.t1.join()
         else:
             if self.mediaplayer.play() == -1:
                 self.OpenFile()
@@ -135,8 +141,8 @@ class Player(QMainWindow):
             self.mediaplayer.play()
             self.playbutton.setText("Pause")
             self.timer.start()
-            self.subtimer.start()
             self.isPaused = False
+            self.t1.start()
 
     def Stop(self):
         """Stop player
@@ -206,22 +212,25 @@ class Player(QMainWindow):
                 # this will fix it
                 self.Stop()
     def updateSubs(self):
+        taym = int(self.mediaplayer.get_time()*1000)
+        print(taym)
         try:
-            self.subbox.setText(self.subdicS[int(self.mediaplayer.get_time())])
+            tekst = self.subdicS.get(taym,"cuck")
+            if tekst != "cuck":
+                self.subbox.setText(tekst)
+                #print(taym)
         except:
                 try: 
-                    self.subboc.setText(self.subdicE[int(self.mediaplayer.get_time())])
+                    tekst = self.subdicE.get(taym,0)
+                    if tekst != "cuck":
+                        self.subboc.setText(tekst)
+                        #print(taym)
                 except:
                     pass
-
-        if not self.mediaplayer.is_playing():
-            # no need to call this function if nothing is played
-            self.subtimer.stop()
-            if not self.isPaused:
-                # after the video finished, the play button stills shows
-                # "Pause", not the desired behavior of a media player
-                # this will fix it
-                self.Stop()
+    def startSub(self):
+        while True:
+            self.updateSubs()
+            time.sleep(0.001)
 
     def OpenSubs(self):
         """Open a media file in a MediaPlayer
@@ -233,7 +242,7 @@ class Player(QMainWindow):
             filename = unicode(filename)
         f = open(filename, encoding='utf-8', errors='replace')
 
-        import srt
+        #import srt
         subtitles = srt.parse(f)
         subs = list(subtitles)
 
