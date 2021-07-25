@@ -212,24 +212,22 @@ class Player(QMainWindow):
                 # this will fix it
                 self.Stop()
     def updateSubs(self):
-        taym = int(self.mediaplayer.get_time()*1000)
+        taym = int(self.mediaplayer.get_time())
+        #print(taym)
+        tekst = self.subdicS.get(taym,"")
+        self.subbox.setText(tekst)
         print(taym)
-        try:
-            tekst = self.subdicS.get(taym,"cuck")
-            if tekst != "cuck":
-                self.subbox.setText(tekst)
-                #print(taym)
-        except:
-                try: 
-                    tekst = self.subdicE.get(taym,0)
-                    if tekst != "cuck":
-                        self.subboc.setText(tekst)
-                        #print(taym)
-                except:
-                    pass
+        '''
+        tekst = self.subdicE.get(taym,"cuck")
+        if tekst != "cuck":
+            self.subbox.setText(tekst)
+            print(taym)
+        '''
+
     def startSub(self):
         while True:
             self.updateSubs()
+            #print(time.time())
             time.sleep(0.001)
 
     def OpenSubs(self):
@@ -250,10 +248,13 @@ class Player(QMainWindow):
         self.subdicE = {}
 
         for cuck in subs:
-            self.subdicS[int(cuck.start.total_seconds())] = cuck.content
+            for i in range(int(cuck.start.total_seconds()*1000),int(cuck.end.total_seconds()*1000)):
+                self.subdicS[i] = cuck.content
             #print(self.subdicS[int(cuck.start.total_seconds())])
-            self.subdicE[int(cuck.end.total_seconds())] = ""
-        print(len(self.subdicS))
+            #self.subdicE[int(cuck.end.total_seconds()*1000)] = ""
+        #print(self.subdicS)
+        #print(subs[166].content)
+        #print(subs[166].start.total_seconds())
             
         
 if __name__ == "__main__":
