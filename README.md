@@ -1,5 +1,6 @@
 # LingoPy
 LibVLC-based LingoPie rip-off
+Instantly translate foreign subtitles while watching.
 
 ~~May or may not use Python (we primarily use C)~~  
 Uses Python EXTENSIVELY (for the mean time)
