@@ -12,6 +12,11 @@ Uses Python EXTENSIVELY (for the mean time)
 - [x]  synch srt to video
 - [x]  fix crashes when pausing player
 
+### Demo
+
+![image](https://user-images.githubusercontent.com/34742984/127005386-d5644c3a-92dd-4cf6-8024-1639be83abc9.png)
+
+
 ## Phase 2 (prototype phase)
 
 - [ ]  break down subtitle text into EDUs (Elementary Discourse Units) using pretrained text segementation model.
