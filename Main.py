@@ -31,6 +31,8 @@ import threading
 import srt
 import time
 from urllib.parse import quote
+#from googletrans import Translator
+from google_trans_new import google_translator
 
 class Player(QMainWindow):
     """A simple Media Player using VLC and Qt
@@ -38,6 +40,7 @@ class Player(QMainWindow):
     def __init__(self, master=None):
         QMainWindow.__init__(self, master)
         self.setWindowTitle("Media Player")
+        self.setStyleSheet("color: white; background-color: black;")
 
         # creating a basic vlc instance
         self.instance = vlc.Instance()
@@ -53,6 +56,12 @@ class Player(QMainWindow):
         self.t1 = threading.Thread(target=self.startSub, args=())
         self.clipboard = QApplication.clipboard()
         
+        self.playsc = QShortcut(Qt.Key_Space, self)
+        self.playsc.activated.connect(self.PlayPause)
+
+        self.transc = QShortcut(Qt.Key_Return, self)
+        self.transc.activated.connect(self.TranSub)
+
         self.playsc = QShortcut(Qt.Key_Space, self)
         self.playsc.activated.connect(self.PlayPause)
 
@@ -109,6 +118,10 @@ class Player(QMainWindow):
         self.subbox.setText(" Polaks are the n*ggas of Europe. - Jean-Jacques Dessalines probably ")
         self.subbox.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self.subsbox.addWidget(self.subbox)
+
+        self.transbox = QLabel()
+        self.transbox.setFont(QFont("Helvetica [Cronyx]", 20))
+        self.subsbox.addWidget(self.transbox)
 
         self.subcopy = QPushButton("Copy Subtitle")
         self.hbuttonbox.addWidget(self.subcopy)
@@ -252,10 +265,15 @@ class Player(QMainWindow):
     def CopySub(self):
         self.clipboard.setText(self.subbox.text())
     def TranSub(self):
+        '''
         pretrans = quote(self.subbox.text(), safe='')
         posttrans = 'https://translate.google.com/?sl=fr&tl=en&text={}&op=translate'.format(pretrans)
         url = QUrl(posttrans)
         QDesktopServices.openUrl(url)
+        '''
+        translator = google_translator()
+        result = translator.translate(self.subbox.text(),lang_tgt='en')
+        self.transbox.setText(result)
 
     def OpenSubs(self):
         """Open a media file in a MediaPlayer
