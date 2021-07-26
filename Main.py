@@ -31,6 +31,8 @@ import threading
 import srt
 import time
 from urllib.parse import quote
+#from googletrans import Translator
+from google_trans_new import google_translator
 
 class Player(QMainWindow):
     """A simple Media Player using VLC and Qt
@@ -103,6 +105,10 @@ class Player(QMainWindow):
         self.subbox.setText(" Polaks are the n*ggas of Europe. - Jean-Jacques Dessalines probably ")
         self.subbox.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self.subsbox.addWidget(self.subbox)
+
+        self.transbox = QLabel()
+        self.transbox.setFont(QFont("Helvetica [Cronyx]", 20))
+        self.subsbox.addWidget(self.transbox)
 
         self.subcopy = QPushButton("Copy Subtitle")
         self.hbuttonbox.addWidget(self.subcopy)
@@ -246,10 +252,15 @@ class Player(QMainWindow):
     def CopySub(self):
         self.clipboard.setText(self.subbox.text())
     def TranSub(self):
+        '''
         pretrans = quote(self.subbox.text(), safe='')
         posttrans = 'https://translate.google.com/?sl=fr&tl=en&text={}&op=translate'.format(pretrans)
         url = QUrl(posttrans)
         QDesktopServices.openUrl(url)
+        '''
+        translator = google_translator()
+        result = translator.translate(self.subbox.text(),lang_tgt='en')
+        self.transbox.setText(result)
 
     def OpenSubs(self):
         """Open a media file in a MediaPlayer
