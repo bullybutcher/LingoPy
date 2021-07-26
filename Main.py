@@ -25,7 +25,7 @@ from PyQt5.Qt import QDesktopServices, QUrl
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPalette, QColor, QFont
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QSlider, QHBoxLayout, QPushButton, \
-    QVBoxLayout, QAction, QFileDialog, QApplication, QLabel
+    QVBoxLayout, QAction, QFileDialog, QApplication, QLabel, QShortcut
 import vlc
 import threading
 import srt
@@ -52,6 +52,12 @@ class Player(QMainWindow):
 
         self.t1 = threading.Thread(target=self.startSub, args=())
         self.clipboard = QApplication.clipboard()
+        
+        self.playsc = QShortcut(Qt.Key_Space, self)
+        self.playsc.activated.connect(self.PlayPause)
+
+        self.transc = QShortcut(Qt.Key_Return, self)
+        self.transc.activated.connect(self.TranSub)
 
     def createUI(self):
         """Set up the user interface, signals & slots
