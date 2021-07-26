@@ -21,6 +21,7 @@
 
 import sys
 import os.path
+from PyQt5.Qt import QDesktopServices, QUrl
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPalette, QColor, QFont
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QSlider, QHBoxLayout, QPushButton, \
@@ -29,6 +30,7 @@ import vlc
 import threading
 import srt
 import time
+from urllib.parse import quote
 
 class Player(QMainWindow):
     """A simple Media Player using VLC and Qt
@@ -106,6 +108,9 @@ class Player(QMainWindow):
         self.hbuttonbox.addWidget(self.subcopy)
         self.subcopy.clicked.connect(self.CopySub)
 
+        self.translate = QPushButton("Translate")
+        self.hbuttonbox.addWidget(self.translate)
+        self.translate.clicked.connect(self.TranSub)
 
         self.vboxlayout = QVBoxLayout()
         self.vboxlayout.addWidget(self.videoframe)
@@ -149,6 +154,7 @@ class Player(QMainWindow):
             self.playbutton.setText("Pause")
             self.timer.start()
             self.isPaused = False
+            self.t1 = threading.Thread(target=self.startSub, args=())
             self.t1.start()
 
     def Stop(self):
@@ -239,6 +245,11 @@ class Player(QMainWindow):
 
     def CopySub(self):
         self.clipboard.setText(self.subbox.text())
+    def TranSub(self):
+        pretrans = quote(self.subbox.text(), safe='')
+        posttrans = 'https://translate.google.com/?sl=fr&tl=en&text={}&op=translate'.format(pretrans)
+        url = QUrl(posttrans)
+        QDesktopServices.openUrl(url)
 
     def OpenSubs(self):
         """Open a media file in a MediaPlayer
