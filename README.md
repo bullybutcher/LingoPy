@@ -10,7 +10,7 @@ Uses Python EXTENSIVELY (for the mean time)
 - [x]  add text-displaying widget to pyqt5 player
 - [x]  process srt files
 - [x]  synch srt to video
-- [ ]  fix crashes when pausing player
+- [x]  fix crashes when pausing player
 
 ## Phase 2 (prototype phase)
 
