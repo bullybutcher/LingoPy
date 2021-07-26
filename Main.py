@@ -40,6 +40,7 @@ class Player(QMainWindow):
     def __init__(self, master=None):
         QMainWindow.__init__(self, master)
         self.setWindowTitle("Media Player")
+        self.setStyleSheet("color: white; background-color: black;")
 
         # creating a basic vlc instance
         self.instance = vlc.Instance()
