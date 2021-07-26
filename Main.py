@@ -22,7 +22,7 @@
 import sys
 import os.path
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QPalette, QColor
+from PyQt5.QtGui import QPalette, QColor, QFont
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QSlider, QHBoxLayout, QPushButton, \
     QVBoxLayout, QAction, QFileDialog, QApplication, QLabel
 import vlc
@@ -49,6 +49,7 @@ class Player(QMainWindow):
         self.subdicE = {}
 
         self.t1 = threading.Thread(target=self.startSub, args=())
+        self.clipboard = QApplication.clipboard()
 
     def createUI(self):
         """Set up the user interface, signals & slots
@@ -96,9 +97,15 @@ class Player(QMainWindow):
 
         self.subsbox = QHBoxLayout()
         self.subbox = QLabel()
+        self.subbox.setFont(QFont("Helvetica [Cronyx]", 20))
         self.subbox.setText(" Polaks are the n*ggas of Europe. - Jean-Jacques Dessalines probably ")
         self.subbox.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self.subsbox.addWidget(self.subbox)
+
+        self.subcopy = QPushButton("Copy Subtitle")
+        self.hbuttonbox.addWidget(self.subcopy)
+        self.subcopy.clicked.connect(self.CopySub)
+
 
         self.vboxlayout = QVBoxLayout()
         self.vboxlayout.addWidget(self.videoframe)
@@ -216,7 +223,7 @@ class Player(QMainWindow):
         #print(taym)
         tekst = self.subdicS.get(taym,"")
         self.subbox.setText(tekst)
-        print(taym)
+        #print(taym)
         '''
         tekst = self.subdicE.get(taym,"cuck")
         if tekst != "cuck":
@@ -229,6 +236,9 @@ class Player(QMainWindow):
             self.updateSubs()
             #print(time.time())
             time.sleep(0.001)
+
+    def CopySub(self):
+        self.clipboard.setText(self.subbox.text())
 
     def OpenSubs(self):
         """Open a media file in a MediaPlayer
