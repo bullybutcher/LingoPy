@@ -1,5 +1,5 @@
 # LingoPy
-A LibVLC-based video player that rips off LingoPie's features.
+LibVLC-based LingoPie rip-off
 
 ~~May or may not use Python (we primarily use C)~~  
 Uses Python EXTENSIVELY (for the mean time)
