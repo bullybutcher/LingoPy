@@ -145,7 +145,7 @@ class Player(QMainWindow):
             self.mediaplayer.pause()
             self.playbutton.setText("Play")
             self.isPaused = True
-            self.t1.join()
+            #self.t1.join()
         else:
             if self.mediaplayer.play() == -1:
                 self.OpenFile()
@@ -238,7 +238,7 @@ class Player(QMainWindow):
         '''
 
     def startSub(self):
-        while True:
+        while not self.isPaused:
             self.updateSubs()
             #print(time.time())
             time.sleep(0.001)
