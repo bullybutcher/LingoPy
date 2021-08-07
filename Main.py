@@ -55,18 +55,18 @@ class Player(QMainWindow):
 
         self.t1 = threading.Thread(target=self.startSub, args=())
         self.clipboard = QApplication.clipboard()
-        
-        self.playsc = QShortcut(Qt.Key_Space, self)
-        self.playsc.activated.connect(self.PlayPause)
-
-        self.transc = QShortcut(Qt.Key_Return, self)
-        self.transc.activated.connect(self.TranSub)
 
         self.playsc = QShortcut(Qt.Key_Space, self)
         self.playsc.activated.connect(self.PlayPause)
 
         self.transc = QShortcut(Qt.Key_Return, self)
         self.transc.activated.connect(self.TranSub)
+
+        self.rew = QShortcut(Qt.Key_Left,self)
+        self.rew.activated.connect(self.rewind)
+
+        self.forw = QShortcut(Qt.Key_Right,self)
+        self.forw.activated.connect(self.forward)
 
     def createUI(self):
         """Set up the user interface, signals & slots
@@ -230,6 +230,12 @@ class Player(QMainWindow):
         # factor, the more precise are the results
         # (1000 should be enough)
 
+    def rewind(self):
+        self.mediaplayer.set_position(self.mediaplayer.get_position()-5000/self.mediaplayer.get_length())
+
+    def forward(self):
+        self.mediaplayer.set_position(self.mediaplayer.get_position()+5000/self.mediaplayer.get_length())
+
     def updateUI(self):
         """updates the user interface"""
         # setting the slider to the desired position
@@ -271,9 +277,12 @@ class Player(QMainWindow):
         url = QUrl(posttrans)
         QDesktopServices.openUrl(url)
         '''
-        translator = google_translator()
-        result = translator.translate(self.subbox.text(),lang_tgt='en')
-        self.transbox.setText(result)
+        try:
+            translator = google_translator()
+            result = translator.translate(self.subbox.text(),lang_tgt='en')
+            self.transbox.setText(result)
+        except:
+            self.transbox.setText("Connection failed. Try again.")
 
     def OpenSubs(self):
         """Open a media file in a MediaPlayer
