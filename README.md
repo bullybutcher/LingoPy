@@ -35,6 +35,5 @@ Download the .zip file from the release page and unzip. Run Main.exe.
 - Have VLC installed on your computer and add libvlc.dll to PATH.
 - Have Python 3.6+ installed.
 - Clone the repository
-- Install required python modules. \n `pip install -r requirements.txt`
-- Run Main.py \n
-`python Main.py`
+- Install required python modules. `pip install -r requirements.txt`
+- Run Main.py `python Main.py`
