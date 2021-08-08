@@ -23,8 +23,9 @@ Uses Python EXTENSIVELY (for the mean time)
 
 - [ ]  break down subtitle text into EDUs (Elementary Discourse Units) using pretrained text segementation model.
 - [ ]  integrate language transformer models (prioritize French)
-- [ ]  OR use unofficial google translate API
+- [x]  OR use unofficial google translate API
 - [ ]  translate on-click (i.e., when you click on a word in the subtitle, it will show an instant translation of the word or of the whole phrase)
+- [ ]  translate upon hovering on word. scroll through possible translations and their definitions.
 
 ## Phase 3
 - [ ] modify VLC source code to render subtitles as in the prototype
