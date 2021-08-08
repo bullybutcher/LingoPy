@@ -29,5 +29,13 @@ Uses Python EXTENSIVELY (for the mean time)
 - [ ] modify VLC source code to render subtitles as in the prototype
 
 # Installation
-Basta dapat may VLC na nakainstall sa PC niyo tapos add niyo nalang yung libvlc.dll sa PATH
-Download niyo yung dalawang .py sa repo tapos patakbuhin niyo yung Main.py
+Download the .zip file from the release page and unzip. Run Main.exe.
+
+## If the current release does not work:
+Have VLC installed on your computer and add libvlc.dll to PATH.
+Have Python 3.6+ installed.
+Clone the repository
+Install required python modules.
+`pip install -r requirements.txt`
+Run Main.py
+`python Main.py`
