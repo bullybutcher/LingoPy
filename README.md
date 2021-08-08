@@ -12,6 +12,7 @@ Uses Python EXTENSIVELY (for the mean time)
 - [x]  process srt files
 - [x]  synch srt to video
 - [x]  fix crashes when pausing player
+- [x]  integrate translation API
 
 ### Demo
 
