@@ -1,0 +1,4 @@
+python-vlc
+srt
+PyQt5
+google_trans_new
